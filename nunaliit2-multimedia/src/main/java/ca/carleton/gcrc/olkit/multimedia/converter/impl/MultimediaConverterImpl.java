@@ -1,6 +1,7 @@
 package ca.carleton.gcrc.olkit.multimedia.converter.impl;
 
 import java.io.File;
+import java.nio.file.Files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +93,7 @@ public class MultimediaConverterImpl implements MultimediaConverter {
 			File outFile = request.getOutFile();
 			if( null == outFile ) {
 				File parentDir = inFile.getParentFile();
-				outFile = File.createTempFile("conv", ".mp4", parentDir);
+				outFile = Files.createTempFile(parentDir.toPath(),"conv",".mp4").toFile();
 			}
 			
 			FFmpegProcessor ffmpeg = FFmpeg.getProcessor(progress);
@@ -188,7 +189,7 @@ public class MultimediaConverterImpl implements MultimediaConverter {
 			File outFile = request.getOutFile();
 			if( null == outFile ) {
 				File parentDir = inFile.getParentFile();
-				outFile = File.createTempFile("conv", ".mp3", parentDir);
+				outFile = Files.createTempFile(parentDir.toPath(),"conv",".mp3").toFile();
 			}
 
 			FFmpegProcessor ffmpeg = FFmpeg.getProcessor(progress);
@@ -305,7 +306,7 @@ public class MultimediaConverterImpl implements MultimediaConverter {
 			File outFile = request.getOutFile();
 			if( null == outFile ) {
 				File parentDir = inFile.getParentFile();
-				outFile = File.createTempFile("conv", "."+outputExtension, parentDir);
+				outFile = Files.createTempFile(parentDir.toPath(),"conv","." + outputExtension).toFile();
 			}
 			
 			ImageMagickProcessor im = imInfo.getProcessor(progress);

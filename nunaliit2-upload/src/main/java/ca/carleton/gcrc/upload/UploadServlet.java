@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -329,7 +330,7 @@ public class UploadServlet extends HttpServlet {
 				    	}
 				    	
 				    	// Create a name for this file
-				    	File target = File.createTempFile("upl", suffix, repositoryDir);
+				    	File target = Files.createTempFile(repositoryDir.toPath(),"upl",suffix).toFile();
 				    	loadedFile.setFile(target);
 				    	
 				    	FileOutputStream fos = null;

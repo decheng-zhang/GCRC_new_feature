@@ -1,6 +1,7 @@
 package ca.carleton.gcrc.couch.onUpload;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -479,7 +480,7 @@ public class UploadWorkerThread extends Thread implements CouchDbChangeListener 
 			}
 			
 			// Download file
-			File outputFile = File.createTempFile("inline", "", mediaDir);
+			File outputFile = Files.createTempFile(mediaDir.toPath(),"inline","").toFile();
 			conversionContext.downloadFile(attachmentName, outputFile);
 			
 			// Create an original structure to point to the file in the

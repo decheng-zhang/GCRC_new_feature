@@ -1,6 +1,7 @@
 package ca.carleton.gcrc.couch.onUpload.multimedia;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.Properties;
 
@@ -660,14 +661,14 @@ public class MultimediaFileConverter implements FileConversionPlugin {
 		// Get file
 		FileConversionContext conversionContext = attDescription.getContext();
 		String mimeType = attDescription.getContentType();
-		File outputFile = File.createTempFile("original_", attDescription.getMediaFileName());
+		File outputFile = Files.createTempFile("original_",attDescription.getMediaFileName()).toFile();
 		conversionContext.downloadFile(attDescription.getAttachmentName(), outputFile);
 		
 		ImageMagickProcessor imp = ImageMagick.getInfo().getProcessor();
 		ImageInfo imageInfo = imp.getImageInfo(outputFile);
 		
 		if( imageInfo.orientation == ImageInfo.Orientation.REQUIRES_CONVERSION ){
-			File convertedFile = File.createTempFile("oriented_", attDescription.getMediaFileName());
+			File convertedFile = Files.createTempFile("oriented_",attDescription.getMediaFileName()).toFile();
 			imp.reorientImage(outputFile, convertedFile);
 			attDescription.uploadFile(convertedFile, mimeType);
 		}
@@ -681,10 +682,10 @@ public class MultimediaFileConverter implements FileConversionPlugin {
 		DocumentDescriptor docDescriptor = attDescription.getDocumentDescriptor();
 		FileConversionContext conversionContext = attDescription.getContext();
 		String mimeType = attDescription.getContentType();
-		File inFile = File.createTempFile("original_", attDescription.getMediaFileName());
+		File inFile = Files.createTempFile("original_",attDescription.getMediaFileName()).toFile();
 		conversionContext.downloadFile(attDescription.getAttachmentName(), inFile);
 
-		File outFile = File.createTempFile("thumb_", attDescription.getMediaFileName());
+		File outFile = Files.createTempFile("thumb_",attDescription.getMediaFileName()).toFile();
 		
 		// Perform thumbnail
 		MultimediaConversionRequest request = new MultimediaConversionRequest();

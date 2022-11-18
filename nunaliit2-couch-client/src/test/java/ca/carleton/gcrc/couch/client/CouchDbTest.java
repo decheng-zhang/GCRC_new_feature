@@ -2,6 +2,7 @@ package ca.carleton.gcrc.couch.client;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -390,7 +391,7 @@ public class CouchDbTest extends TestCase {
 			// Refresh object
 			doc = db.getDocument(docId);
 			
-			File outputFile = File.createTempFile("download", ".ogg");
+			File outputFile = Files.createTempFile("download",".ogg").toFile();
 			FileOutputStream fos = new FileOutputStream(outputFile);
 			db.downloadAttachment(doc, "att01", fos);
 			fos.flush();
